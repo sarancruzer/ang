@@ -17,7 +17,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 })
                 .state('layout.users', {
                     url: '/users',
-                    templateUrl: '/app/modules/users/views/userView1.html',
+                    templateUrl: '/app/modules/users/views/userView.html',
                     controller: 'UserController as user'
                 });
         });

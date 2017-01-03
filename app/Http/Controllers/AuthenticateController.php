@@ -8,26 +8,22 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use JWTAuth;
 use App\User;
-
+use DB;
 class AuthenticateController extends Controller
 {
 
-    public function __construct()
-   {
-       // Apply the jwt.auth middleware to all methods in this controller
-       // except for the authenticate method. We don't want to prevent
-       // the user from retrieving their token if they don't already have it
-       $this->middleware('jwt.auth', ['except' => ['authenticate']]);
-   }
-
-	public function index()
-	{
-	    // Retrieve all the users in the database and return them
-	    $users = User::all();
-	    return $users;
-	}
-    
-  
+   public function getToken($request)
+    {
+        $token = null; 
+        foreach (getallheaders() as $name => $value) {
+            if($name == "Authorization")
+            {
+                return $token = str_replace("Bearer ", "", $value);
+            }
+        }
+        return response()->json(['error' => "Authentication Not Provided"],401);
+    }
+ 
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -45,4 +41,21 @@ class AuthenticateController extends Controller
         // if no errors are encountered we can return a JWT
         return response()->json(compact('token'));
     }
+
+    public function getUsers(Request $request)
+  {
+      $input = $request->all();
+      $token = $this->getToken($request);
+      $user = JWTAuth::toUser($token);
+
+      $lists = DB::table('users')->paginate(5);
+      
+
+      $result = array();      
+      if(count($lists) > 0){
+        $result['info'] = $lists;
+          return response()->json(['result' => $result]);
+      }
+  }
+  
 }

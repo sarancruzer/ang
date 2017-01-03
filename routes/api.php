@@ -18,5 +18,25 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 
-Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
-Route::post('authenticate', 'AuthenticateController@authenticate');
+
+Route::group(["middleware"=>"cors"], function(){
+
+			
+
+			Route::post('authenticate', 'AuthenticateController@authenticate');
+
+
+Route::group(["middleware"=>"jwt.auth"], function(){
+
+			
+			Route::post('getUsers', 'AuthenticateController@getUsers');		
+
+			Route::post('getSupplierList', 'SupplierController@getSupplierList');		
+			
+
+
+
+		
+});
+
+});
