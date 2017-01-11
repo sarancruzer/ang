@@ -7,7 +7,7 @@ use App\User;
 use Hash;
 use JWTAuth;
 
-class SupplierController extends Controller{
+class ProductController extends Controller{
 
 	public function getToken($request)
     {
@@ -22,7 +22,7 @@ class SupplierController extends Controller{
     }
 
     
-    public function getSupplierList(Request $request){
+    public function getProductList(Request $request){
     	$input = $request->all();
     	$token = $this->getToken($request);
     	$user = JWTAuth::toUser($token);
@@ -30,19 +30,14 @@ class SupplierController extends Controller{
 
         $searchValue= $input['searchValue'];
 
-    	$lists = DB::table('suppliers as s')
-                        ->where('s.status','=',1)
+    	$lists = DB::table('products as p')
+                        ->where('p.status','=',1)
                         ->where(function($query) use ($searchValue)
                         {
                         if(!empty($searchValue)):
-                            $query->Where('s.supplier_name','like', $searchValue.'%');
+                            $query->Where('p.product_name','like', $searchValue.'%');
                         endif;
-                        if(!empty($searchValue)):
-                            $query->orWhere('s.email','like', $searchValue.'%');
-                        endif;
-                        if(!empty($searchValue)):
-                            $query->orWhere('s.mobile','like', $searchValue.'%');
-                        endif;
+                        
                      })
                         ->paginate(5);
 		
@@ -61,7 +56,7 @@ class SupplierController extends Controller{
 
         date_default_timezone_set('Asia/Kolkata');
 
-        $data['supplier_id'] = $input['supplier_name'];
+        $data['supplier_name'] = $input['supplier_name'];
         $data['email'] = $input['email'];
         $data['mobile'] = $input['mobile'];
         $data['address'] = $input['address'];
@@ -82,7 +77,7 @@ class SupplierController extends Controller{
 
     }
 
-     public function editProduct(Request $request){
+     public function editSupplier(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
@@ -101,7 +96,7 @@ class SupplierController extends Controller{
     }
 
 
-     public function updateProduct(Request $request){
+     public function updateSupplier(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
@@ -125,7 +120,7 @@ class SupplierController extends Controller{
 
     } 
 
-     public function deleteProduct(Request $request){
+     public function deleteSupplier(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
