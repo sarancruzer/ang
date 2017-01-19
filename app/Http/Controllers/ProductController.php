@@ -56,35 +56,34 @@ class ProductController extends Controller{
 
         date_default_timezone_set('Asia/Kolkata');
 
-        $data['supplier_name'] = $input['supplier_name'];
-        $data['email'] = $input['email'];
-        $data['mobile'] = $input['mobile'];
-        $data['address'] = $input['address'];
-        $data['supplier_code'] = $input['supplier_code'];
+        $data['supplier_id'] = $input['supplier_id'];
+        $data['product_code'] = $input['product_code'];
+        $data['product_name'] = $input['product_name'];
+        $data['product_cost'] = $input['product_cost'];
+        $data['percentage'] = $input['percentage'];
         $data['created_at'] = date('Y-m-d H:i:s');
 
 
-
-        $lists = DB::table('suppliers')->insertGetId($data);
+        $lists = DB::table('products')->insertGetId($data);
 
         $result = array();
         if($lists)
         {
-        $result['info'] = 'supplier has been added successfully ';
+        $result['info'] = 'product has been added successfully ';
         return response()->json(['result' => $result]);
         }
-         return response()->json(['result' => 'your request has sending failed']);
+         return response()->json(['error' => 'your request has sending failed'],401);
 
     }
 
-     public function editSupplier(Request $request){
+     public function editProduct(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
 
-        $supplier_id = $input['supplier_id'];
-        $lists = DB::table('suppliers')
-                        ->where('id','=',$supplier_id)
+        $product_id = $input['product_id'];
+        $lists = DB::table('products')
+                        ->where('id','=',$product_id)
                         ->get();
 
         $result = array();          
@@ -93,53 +92,145 @@ class ProductController extends Controller{
             return response()->json(['result' => $result]);
         }
 
+        return response()->json(['error' => 'No Results Found'],401);
+
     }
 
 
-     public function updateSupplier(Request $request){
+     public function updateProduct(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
 
-        $supplier_id = $input['supplier_id'];
+        $product_id = $input['product_id'];
 
-        $data['supplier_name'] = $input['supplier_name'];
-        $data['email'] = $input['email'];
-        $data['mobile'] = $input['mobile'];
-        $data['address'] = $input['address'];
-        $data['supplier_code'] = $input['supplier_code'];
+        $data['supplier_id'] = $input['supplier_id'];
+        $data['product_code'] = $input['product_code'];
+        $data['product_name'] = $input['product_name'];
+        $data['product_cost'] = $input['product_cost'];
+        $data['percentage'] = $input['percentage'];
         
-        $lists = DB::table('suppliers')
-                    ->where('id','=',$supplier_id)
+        $lists = DB::table('products')
+                    ->where('id','=',$product_id)
                     ->update($data);
 
         if($lists){
-            return response()->json(['result'=>'supplier has been updated successfully!!!']);
+            return response()->json(['result'=>'product has been updated successfully!!!']);
         }
         return response()->json(['error' => 'your update has been failed!!!'],401);
 
     } 
 
-     public function deleteSupplier(Request $request){
+     public function deleteProduct(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
 
-        $supplier_id = $input['supplier_id'];
+        $product_id = $input['product_id'];
 
-        $lists = DB::table('suppliers')
-                        ->where('id', '=', $supplier_id)
+        $lists = DB::table('products')
+                        ->where('id', '=', $product_id)
                         ->delete();
 
         $result = array();
         if($lists)
         {
-        $result['info'] = 'supplier has been deleted successfully ';
+        $result['info'] = 'product has been deleted successfully ';
         return response()->json(['result' => $result]);
         }
          return response()->json(['result' => 'your request has failed']);
 
     }   
+
+    public function productInward(Request $request){
+        $input = $request->all();
+        $token = $this->getToken($request);
+        $user = JWTAuth::toUser($token);
+
+
+        $product_id = $input['product_id'];
+        $lists = DB::table('product_inward')
+                            ->where('product_id','=',$product_id)
+                            ->get();
+
+        date_default_timezone_set('Asia/Kolkata');                            
+     
+        $total_cost = round($input['quantity'] * $input['unit_cost']);
+        $data = array(
+                               'product_id' => $input['product_id'],
+                               'supplier_id' => $input['supplier_id'],
+                               'quantity' => DB::raw('quantity+'.$input['quantity']),
+                               'unit_cost' => $input['unit_cost'],
+                               'total_cost' => $total_cost,
+                               'invoice_no' => $input['invoice_no'],
+                               "invoice_date"=>date('Y-m-d'),
+                               "total_amount"=>DB::raw('total_amount+'.$total_cost),
+                               "created_at"=>date('Y-m-d'),
+
+            );
+        $result = array();                            
+        if(count($lists) > 0 ){
+            $lists = DB::table('product_inward')
+                            ->where('id','=',$input['id'])
+                            ->update($data);
+            
+            $result['info'] = 'product has been updated successfully '; 
+            return response()->json(['result' => $result]);
+        }else{
+            $lists = DB::table('product_inward')
+                            ->insertGetId($data);            
+            $result['info'] = 'product has been added successfully '; 
+            return response()->json(['result' => $result]);
+        }                            
+         return response()->json(['result' => 'your request has failed']);
+
+    }
+
+
+
+    public function productInward(Request $request){
+        $input = $request->all();
+        $token = $this->getToken($request);
+        $user = JWTAuth::toUser($token);
+
+
+        $product_id = $input['product_id'];
+        $lists = DB::table('product_inward')
+                            ->where('product_id','=',$product_id)
+                            ->get();
+
+        date_default_timezone_set('Asia/Kolkata');                            
+     
+        $total_cost = round($input['quantity'] * $input['unit_cost']);
+        $data = array(
+            'product_id' => $input['product_id'],
+                               'supplier_id' => $input['supplier_id'],
+                               'quantity' => DB::raw('quantity+'.$input['quantity']),
+                               'unit_cost' => $input['unit_cost'],
+                               'total_cost' => $total_cost,
+                               'invoice_no' => $input['invoice_no'],
+                               "invoice_date"=>date('Y-m-d'),
+                               "total_amount"=>DB::raw('total_amount+'.$total_cost),
+                               "created_at"=>date('Y-m-d'),
+
+            );
+        $result = array();                            
+        if(count($lists) > 0 ){
+            $lists = DB::table('product_inward')
+                            ->where('product_id','=',$input['product_id'])
+                            ->update($data);
+            
+            $result['info'] = 'product has been added successfully '; 
+            return response()->json(['result' => $result]);
+        }else{
+            $lists = DB::table('product_inward')
+                            ->insertGetId($data);            
+            $result['info'] = 'product has been added successfully '; 
+            return response()->json(['result' => $result]);
+        }                            
+         return response()->json(['result' => 'your request has failed']);
+
+    }
 
 
 }

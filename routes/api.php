@@ -42,9 +42,11 @@ Route::group(["middleware"=>"jwt.auth"], function(){
 			Route::post('editProduct', 'ProductController@editProduct');
 			Route::post('updateProduct', 'ProductController@updateProduct');		
 			Route::post('deleteProduct', 'ProductController@deleteProduct');		
-			
-			
 
+			Route::post('productInward', 'ProductController@productInward');		
+			
+			
+			
 			
 
 		

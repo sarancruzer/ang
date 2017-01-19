@@ -97,6 +97,7 @@ class SupplierController extends Controller{
             $result['info'] = $lists;
             return response()->json(['result' => $result]);
         }
+        return response()->json(['error' => 'No Results Found'],401);
 
     }
 
