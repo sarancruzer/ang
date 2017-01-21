@@ -146,41 +146,54 @@ class ProductController extends Controller{
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
+        date_default_timezone_set('Asia/Kolkata');
 
-
-        $product_id = $input['product_id'];
-        $lists = DB::table('product_inward')
-                            ->where('product_id','=',$product_id)
-                            ->get();
-
-        date_default_timezone_set('Asia/Kolkata');                            
-     
         $total_cost = round($input['quantity'] * $input['unit_cost']);
         $data = array(
-                               'product_id' => $input['product_id'],
-                               'supplier_id' => $input['supplier_id'],
-                               'quantity' => DB::raw('quantity+'.$input['quantity']),
-                               'unit_cost' => $input['unit_cost'],
-                               'total_cost' => $total_cost,
-                               'invoice_no' => $input['invoice_no'],
-                               "invoice_date"=>date('Y-m-d'),
-                               "total_amount"=>DB::raw('total_amount+'.$total_cost),
-                               "created_at"=>date('Y-m-d'),
-
+           'product_id' => $input['product_id'],
+           'supplier_id' => $input['supplier_id'],
+           'quantity' => $input['quantity'],
+           'unit_cost' => $input['unit_cost'],
+           'total_cost' => $input['total_cost'],
+           'invoice_no' => $input['invoice_no'],
+           "invoice_date"=>date('Y-m-d'),
+           "total_amount"=>$input['total_amount'],
+           "created_at"=>date('Y-m-d'),
             );
+
         $result = array();                            
-        if(count($lists) > 0 ){
-            $lists = DB::table('product_inward')
-                            ->where('id','=',$input['id'])
-                            ->update($data);
+        $lists = DB::table('product_inward')->insertGetId($data);            
+        if(count($lists)>0){
+
             
-            $result['info'] = 'product has been updated successfully '; 
-            return response()->json(['result' => $result]);
-        }else{
-            $lists = DB::table('product_inward')
-                            ->insertGetId($data);            
-            $result['info'] = 'product has been added successfully '; 
-            return response()->json(['result' => $result]);
+           $this->addProductToStock($data);
+         
+           $result['info'] = 'product has been added successfully '; 
+           return response()->json(['result' => $result]);
+        }                            
+         return response()->json(['result' => 'your request has failed']);
+
+    }
+
+
+    public function addProductToStock($data){
+
+        print_r($data);
+        $total_cost = round($input['quantity'] * $input['unit_cost']);
+        
+        $exists_product = DB::table('stock')
+                                ->where('product_id','=',$data['product_id'])
+                                ->get();
+
+
+        $lists = DB::table('stock')->insertGetId($data);            
+        $result = array(); 
+        if(count($exists_product)>0){
+
+            $lists = DB::table('stock')->insertGetId($data);
+         
+           $result['info'] = 'product has been added successfully '; 
+           return response()->json(['result' => $result]);
         }                            
          return response()->json(['result' => 'your request has failed']);
 
@@ -188,7 +201,7 @@ class ProductController extends Controller{
 
 
 
-    public function productInward(Request $request){
+    public function productInwardd(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
