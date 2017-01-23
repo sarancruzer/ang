@@ -12,10 +12,10 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 })
                 .state('auth', {
                     url: '/auth',
-                    templateUrl: '/app/modules/auth/views/authView.html',
+                    templateUrl: '/app/modules/auth/views/login.html',
                     controller: 'AuthController as auth'
                 })
-                .state('users', {
+                .state('layout.users', {
                     url: '/users',
                     templateUrl: '/app/modules/users/views/userView.html',
                     controller: 'UserController as user'
@@ -31,8 +31,8 @@ app.run(['$rootScope', '$location','$auth','$state', function ($rootScope, $loca
 
     $rootScope.$on( "$locationChangeStart", function(event, next, current) {
       if (!$auth.isAuthenticated()) {
-        if($location.path() != "/login"){
-           $location.path("/login");
+        if($location.path() != "/auth"){
+           $location.path("/auth");
         }       
         $rootScope.authenticated = false;
       }
@@ -42,10 +42,10 @@ app.run(['$rootScope', '$location','$auth','$state', function ($rootScope, $loca
         $rootScope.userId = localStorage.getItem('userId');
         $rootScope.usename = localStorage.getItem('usename');
         
-        if($location.path() == "/login" || $location.path() == "/")
+        if($location.path() == "/auth" || $location.path() == "/")
         {
             if ($auth.isAuthenticated()) {          
-                $location.path("/dashboard");
+                $location.path("/users");
               }
         }
       }

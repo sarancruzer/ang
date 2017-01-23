@@ -4,15 +4,12 @@
         <meta charset="utf-8">
         <title>Angular-Laravel Authentication</title>
 
-        <link rel="stylesheet" href="assets/wrappixel/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="assets/wrappixel/css/bootstrap-responsive.min.css" />
-        <link rel="stylesheet" href="assets/wrappixel/css/fullcalendar.css" />
-        <link rel="stylesheet" href="assets/wrappixel/css/matrix-style.css" />
-        <link rel="stylesheet" href="assets/wrappixel/css/matrix-media.css" />
-        <link href="assets/wrappixel/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        <link rel="stylesheet" href="assets/wrappixel/css/jquery.gritter.css" />
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+    <link href="../assets/ui/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/ui/font-awesome/css/font-awesome.css" rel="stylesheet">
 
+    <link href="../assets/ui/css/animate.css" rel="stylesheet">
+    <link href="../assets/ui/css/style.css" rel="stylesheet">
+       
 
     </head>
     <body >
@@ -21,32 +18,43 @@
 
     </body>
 
+    <!-- Mainly scripts -->
+    <script src="../assets/ui/js/jquery-3.1.1.min.js"></script>
+    <script src="../assets/ui/js/bootstrap.min.js"></script>
+
+    <script src="../assets/ui/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../assets/ui/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Peity -->
+    <script src="../assets/ui/js/plugins/peity/jquery.peity.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="../assets/ui/js/inspinia.js"></script>
+    <script src="../assets/ui/js/plugins/pace/pace.min.js"></script>
+
+    <!-- iCheck -->
+    <script src="../assets/ui/js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Peity -->
+    <script src="../assets/ui/js/demo/peity-demo.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+
+
+
+
+
     <!-- Application Dependencies -->
     <script src="../assets/lib/angular/angular.js"></script>
     <script src="../assets/lib/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="../assets/lib/satellizer/dist/satellizer.js"></script>
-
-
-<script src="assets/wrappixel/js/excanvas.min.js"></script> 
-<script src="assets/wrappixel/js/jquery.min.js"></script> 
-<script src="assets/wrappixel/js/jquery.ui.custom.js"></script> 
-<script src="assets/wrappixel/js/bootstrap.min.js"></script> 
-<script src="assets/wrappixel/js/jquery.flot.min.js"></script> 
-<script src="assets/wrappixel/js/jquery.flot.resize.min.js"></script> 
-<script src="assets/wrappixel/js/jquery.peity.min.js"></script> 
-<script src="assets/wrappixel/js/fullcalendar.min.js"></script> 
-<script src="assets/wrappixel/js/matrix.js"></script> 
-<script src="assets/wrappixel/js/jquery.gritter.min.js"></script> 
-<script src="assets/wrappixel/js/matrix.interface.js"></script> 
-<script src="assets/wrappixel/js/matrix.chat.js"></script> 
-<script src="assets/wrappixel/js/jquery.validate.js"></script> 
-<script src="assets/wrappixel/js/matrix.form_validation.js"></script> 
-<script src="assets/wrappixel/js/jquery.wizard.js"></script> 
-<script src="assets/wrappixel/js/jquery.uniform.js"></script> 
-<script src="assets/wrappixel/js/select2.min.js"></script> 
-<script src="assets/wrappixel/js/matrix.popover.js"></script> 
-<script src="assets/wrappixel/js/jquery.dataTables.min.js"></script> 
-<script src="assets/wrappixel/js/matrix.tables.js"></script> 
 
 
 
