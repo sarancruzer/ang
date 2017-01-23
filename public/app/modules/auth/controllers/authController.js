@@ -55,7 +55,7 @@ app.controller('AuthController',function ($scope, $auth, $state, $http, $rootSco
                 
                 var token = data.data.token;
                 $rootScope.authenticated = true;
-
+                $state.go('layout.users', {});
                 
             }, function(error) {
                 $scope.loginError = true;
