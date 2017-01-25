@@ -1,3 +1,10 @@
+<script type="text/javascript">
+$(document).ready(function () {
+    // MetisMenu
+    $('#side-menu').metisMenu();
+});
+</script>
+
   <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
       
@@ -222,28 +229,5 @@
         </div>
     </nav>
 
- <script>
-        $(document).ready(function(){
-            
-
-var selector = '.nav li';
-var selector1 = '.nav li > ul';
-
-$(selector).on('click', function(){
-    
-    $(selector).removeClass('active');
-    $(this).slideDown('1000').addClass('active');
-
-    $(selector1).removeClass('in');
-    $(this).children('ul').addClass('in');
-
-
-//    $(this).slideUp('300').removeClass('active');
-    
-});
-
-
-        });
-    </script>
 
     
