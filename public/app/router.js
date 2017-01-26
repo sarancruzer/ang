@@ -13,12 +13,35 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 .state('auth', {
                     url: '/auth',
                     templateUrl: '/app/modules/auth/views/login.html',
-                    controller: 'AuthController as auth'
+                    controller: 'authController as auth'
                 })
                 .state('layout.users', {
                     url: '/users',
                     templateUrl: '/app/modules/users/views/userView.html',
-                    controller: 'UserController as user'
+                    controller: 'userController as user'
+                })
+                .state('layout.profile',{
+                  url : '/profile',
+                  templateUrl:'/app/modules/profile/views/_profile.html',
+                  controller : 'profileController as profile'
+                })
+                .state('layout.supplierList',{
+                  url : '/supplierList',
+                  templateUrl : '/app/modules/supplier/views/_supplierList.html',
+                  controller : 'manageSupplierController as manageSupplier',
+                  pageTitile : 'Suppliers'
+                })
+                .state('layout.addSupplier',{
+                  url : '/addSupplier',
+                  templateUrl : '/app/modules/supplier/views/_addSupplier.html',
+                  controller: 'addSupplierController as addSupplier',
+                  pageTitle : 'Add Supplier'
+                })
+                .state('layout.editSupplier',{
+                  url : '/editSupplier',
+                  templateUrl : '/app/modules/supplier/views/_editSupplier.html',
+                  controller: 'editSupplierController as editSupplier',
+                  pageTitle : 'Edit Supplier'
                 });
         });
 
@@ -45,7 +68,7 @@ app.run(['$rootScope', '$location','$auth','$state', function ($rootScope, $loca
         if($location.path() == "/auth" || $location.path() == "/")
         {
             if ($auth.isAuthenticated()) {          
-                $location.path("/users");
+                $location.path("/profile");
               }
         }
       }

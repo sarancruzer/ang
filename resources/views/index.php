@@ -47,10 +47,6 @@
         });
     </script>
 
-
-
-
-
     <!-- Application Dependencies -->
     <script src="../assets/lib/angular/angular.js"></script>
     <script src="../assets/lib/angular-ui-router/release/angular-ui-router.js"></script>
@@ -63,4 +59,8 @@
     <script src="../app/router.js"></script>
     <script src="../app/modules/auth/controllers/authController.js"></script>
     <script src="../app/modules/users/controllers/userController.js"></script>
+    <script src="../app/modules/profile/controllers/profileController.js"></script>
+    <script src="../app/modules/supplier/controllers/manageSupplierController.js"></script>
+    <script src="../app/modules/supplier/controllers/addSupplierController.js"></script>
+
 </html>

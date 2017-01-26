@@ -44,6 +44,7 @@ class SupplierController extends Controller{
                             $query->orWhere('s.mobile','like', $searchValue.'%');
                         endif;
                      })
+                        ->orderBy('id','desc')
                         ->paginate(5);
 		
 
@@ -54,21 +55,19 @@ class SupplierController extends Controller{
     	}
     }
 
-    public function addProduct(Request $request){
+    public function addSupplier(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
 
         date_default_timezone_set('Asia/Kolkata');
 
-        $data['supplier_id'] = $input['supplier_name'];
-        $data['email'] = $input['email'];
-        $data['mobile'] = $input['mobile'];
-        $data['address'] = $input['address'];
-        $data['supplier_code'] = $input['supplier_code'];
+        $data['supplier_name'] = $input['info']['supplier_name'];
+        $data['email'] = $input['info']['email'];
+        $data['mobile'] = $input['info']['mobile'];
+        $data['address'] = $input['info']['address'];
+        $data['supplier_code'] = $input['info']['supplier_code'];
         $data['created_at'] = date('Y-m-d H:i:s');
-
-
 
         $lists = DB::table('suppliers')->insertGetId($data);
 
@@ -82,7 +81,7 @@ class SupplierController extends Controller{
 
     }
 
-     public function editProduct(Request $request){
+     public function editSupplier(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);

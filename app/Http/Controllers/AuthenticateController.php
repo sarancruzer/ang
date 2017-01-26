@@ -57,5 +57,24 @@ class AuthenticateController extends Controller
           return response()->json(['result' => $result]);
       }
   }
+
+  public function profile(Request $request){
+    $input = $request->all();
+    $token = $this->getToken($request);
+    $user = JWTAuth::toUser($token);
+
+    $lists = DB::table('users')
+                ->where('id','=',$user['id'])
+                ->get();
+      
+      $result = array();      
+      if(count($lists) > 0){
+        $result['info'] = $lists;
+          return response()->json(['result' => $result]);
+      }
+
+      return response()->json(['error'=>'No Results Found'],401);
+
+  }
   
 }

@@ -1,24 +1,24 @@
 
-app.controller("userController",function ($scope, $auth, $state, $http, $rootScope){
+app.controller("manageSupplierController",function ($scope, $auth, $state, $http, $rootScope){
         $scope.totalPages   = 0;
         $scope.currentPage  = 0;
         $scope.range = 0;
-        $scope.init= function(page){
+        $scope.init= function(page,searchValue){
             
             var request = {
                 method:"POST",
-                url:"/api/getUsers?page="+page,
-                data:{},
+                url:"/api/getSupplierList?page="+page,
+                data:{"searchValue":searchValue},
                 headers : {'Content-Type' : 'application/json'},
             };
             $http(request).then(function successCallback(response) {
                 $scope.details = response.data.result.info.data;
-                $scope.totalPages   = response.data.result.last_page;
-                $scope.currentPage  = response.data.result.current_page;
+                $scope.totalPages   = response.data.result.info.last_page;
+                $scope.currentPage  = response.data.result.info.current_page;
 
                 // Pagination Range
                 var pages = [];
-                for(var i=1;i<=response.data.result.last_page;i++) {          
+                for(var i=1;i<=response.data.result.info.last_page;i++) {          
                   pages.push(i);
                 }
                 $scope.range = pages;
@@ -31,7 +31,15 @@ app.controller("userController",function ($scope, $auth, $state, $http, $rootSco
             });
         };
 
-        $scope.init(1);
+
+        $scope.init(1,"");
+
+
+
+        $scope.addSupplier = function(){
+
+            console.log();
+        }
 
       
         
