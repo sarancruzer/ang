@@ -1,37 +1,6 @@
-// (function() {    'use strict';
-//     angular.module('authApp').controller('AuthController', AuthController);
-
-
-//     function AuthController($auth, $state) {
-
-//         var vm = this;
-            
-//         vm.login = function() {
-
-//             var credentials = {
-//                 email: vm.email,
-//                 password: vm.password
-//             }
-            
-//             // Use Satellizer's $auth service to login
-//             $auth.login(credentials).then(function(data) {
-
-//                 // If login is successful, redirect to the users state
-//                 $state.go('layout.users', {});
-//             });
-//         }
-
-//     }
-
-// })();
-
-
-app.controller('AuthController',function ($scope, $auth, $state, $http, $rootScope) {
-
-
-    $scope.doLogin = function (logdetail) {
-
-            
+app.controller('authController',function ($scope, $auth, $state, $http, $rootScope) {
+$scope.doLogin = function (logdetail) {
+           
             var credentials = {
                 email: logdetail.email,
                 password: logdetail.password
@@ -55,7 +24,7 @@ app.controller('AuthController',function ($scope, $auth, $state, $http, $rootSco
                 
                 var token = data.data.token;
                 $rootScope.authenticated = true;
-                $state.go('layout.users', {});
+                $state.go('layout.profile', {});
                 
             }, function(error) {
                 $scope.loginError = true;
