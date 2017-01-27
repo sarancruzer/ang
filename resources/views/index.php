@@ -62,5 +62,7 @@
     <script src="../app/modules/profile/controllers/profileController.js"></script>
     <script src="../app/modules/supplier/controllers/manageSupplierController.js"></script>
     <script src="../app/modules/supplier/controllers/addSupplierController.js"></script>
+    <script src="../app/modules/supplier/controllers/supplierEditController.js"></script>
+    
 
 </html>

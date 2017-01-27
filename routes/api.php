@@ -33,9 +33,9 @@ Route::group(["middleware"=>"jwt.auth"], function(){
 
 			Route::post('getSupplierList', 'SupplierController@getSupplierList');		
 			Route::post('addSupplier', 'SupplierController@addSupplier');		
-			Route::post('editSupplier', 'SupplierController@editSupplier');
+			Route::post('getSupplierById/{id}', 'SupplierController@getSupplierById');
 			Route::post('updateSupplier', 'SupplierController@updateSupplier');		
-			Route::post('deleteSupplier', 'SupplierController@deleteSupplier');
+			Route::post('supplierDelete', 'SupplierController@supplierDelete');
 
 			Route::post('getProductList', 'ProductController@getProductList');		
 			Route::post('addProduct', 'ProductController@addProduct');		

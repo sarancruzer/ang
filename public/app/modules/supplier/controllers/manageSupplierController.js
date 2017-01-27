@@ -34,16 +34,32 @@ app.controller("manageSupplierController",function ($scope, $auth, $state, $http
 
         $scope.init(1,"");
 
-
-
-        $scope.addSupplier = function(){
-
-            console.log();
+        $scope.modelDel = function(id){
+            $scope.delId = id;
         }
 
-      
-        
-       
+        $scope.supplierDelete = function(){
+            console.log($scope.delId);
+            var data = {"id":$scope.delId};
+            var request = {
+                    method:"POST",
+                    url:"/api/supplierDelete",
+                    data:data,
+                    headers : {'Content-Type':'application/json'}   
+            };
+            $http(request).then(function successCallback(response){
+                
+                $scope.SpSuccess=response.data.result;
+                 $scope.init(1,"");
+            },function errorCallback(response){
+                $scope.SpError=response.data.error;
+                if(response.status == 404){
+                    $scope.SpError = response.statusText;
+                }
+            });
+        }
 
+
+       
         
 });

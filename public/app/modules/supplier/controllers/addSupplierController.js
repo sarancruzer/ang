@@ -10,7 +10,7 @@ app.controller("addSupplierController",function ($scope, $auth, $state, $http, $
             var request = {
                 method:"POST",
                 url:"/api/addSupplier",
-                data:{info:data},
+                data:data,
                 headers : {'Content-Type' : 'application/json'},
             };
             $http(request).then(function successCallback(response) {

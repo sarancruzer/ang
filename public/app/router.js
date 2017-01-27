@@ -37,12 +37,13 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                   controller: 'addSupplierController as addSupplier',
                   pageTitle : 'Add Supplier'
                 })
-                .state('layout.editSupplier',{
-                  url : '/editSupplier',
-                  templateUrl : '/app/modules/supplier/views/_editSupplier.html',
-                  controller: 'editSupplierController as editSupplier',
-                  pageTitle : 'Edit Supplier'
-                });
+                .state('layout.supplierEdit',{
+                  url:'/supplierEdit/:id',
+                  templateUrl:'/app/modules/supplier/views/_supplierEdit.html',
+                  controller:'supplierEditController as supplierEdit',
+                  pageTitle:'Edit Supplier'
+                })
+
         });
 
 app.run(['$rootScope', '$location','$auth','$state', function ($rootScope, $location, $auth, $state, $templateCache) {

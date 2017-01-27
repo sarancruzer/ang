@@ -62,11 +62,11 @@ class SupplierController extends Controller{
 
         date_default_timezone_set('Asia/Kolkata');
 
-        $data['supplier_name'] = $input['info']['supplier_name'];
-        $data['email'] = $input['info']['email'];
-        $data['mobile'] = $input['info']['mobile'];
-        $data['address'] = $input['info']['address'];
-        $data['supplier_code'] = $input['info']['supplier_code'];
+        $data['supplier_name'] = $input['supplier_name'];
+        $data['email'] = $input['email'];
+        $data['mobile'] = $input['mobile'];
+        $data['address'] = $input['address'];
+        $data['supplier_code'] = $input['supplier_code'];
         $data['created_at'] = date('Y-m-d H:i:s');
 
         $lists = DB::table('suppliers')->insertGetId($data);
@@ -81,14 +81,13 @@ class SupplierController extends Controller{
 
     }
 
-     public function editSupplier(Request $request){
+     public function getSupplierById(Request $request,$id){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
 
-        $supplier_id = $input['supplier_id'];
         $lists = DB::table('suppliers')
-                        ->where('id','=',$supplier_id)
+                        ->where('id','=',$id)
                         ->get();
 
         $result = array();          
@@ -101,18 +100,19 @@ class SupplierController extends Controller{
     }
 
 
-     public function updateProduct(Request $request){
+     public function updateSupplier(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
 
-        $supplier_id = $input['supplier_id'];
+        $supplier_id = $input['id'];
 
         $data['supplier_name'] = $input['supplier_name'];
         $data['email'] = $input['email'];
         $data['mobile'] = $input['mobile'];
         $data['address'] = $input['address'];
         $data['supplier_code'] = $input['supplier_code'];
+        $data['created_at'] = date('Y-m-d H:i:s');
         
         $lists = DB::table('suppliers')
                     ->where('id','=',$supplier_id)
@@ -125,12 +125,12 @@ class SupplierController extends Controller{
 
     } 
 
-     public function deleteProduct(Request $request){
+     public function supplierDelete(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
 
-        $supplier_id = $input['supplier_id'];
+        $supplier_id = $input['id'];
 
         $lists = DB::table('suppliers')
                         ->where('id', '=', $supplier_id)
