@@ -1,5 +1,5 @@
 
-app.controller("supplierEditController",function ($scope, $auth, $state, $http, $rootScope,$location,$stateParams){
+app.controller("productEditController",function ($scope, $auth, $state, $http, $rootScope,$location,$stateParams){
         
         $scope.init = function(){
 
@@ -8,7 +8,7 @@ app.controller("supplierEditController",function ($scope, $auth, $state, $http, 
 
             var request = {
                 method:"POST",
-                url:"/api/getSupplierById/"+id,
+                url:"/api/getProductById/"+id,
                 data:{info:data},
                 headers : {'Content-Type' : 'application/json'},
             };
@@ -28,18 +28,18 @@ app.controller("supplierEditController",function ($scope, $auth, $state, $http, 
         $scope.init();
 
 
-        $scope.supplierUpdate = function(form){
+        $scope.productUpdate = function(form){
             var data = $scope.supplier;
             console.log(data);
             var request = {
                 method:"POST",
-                url:"/api/supplierUpdate",
+                url:"/api/productUpdate",
                 data:data,
                 headers : {'Content-Type' : 'application/json'},
             };
             $http(request).then(function successCallback(response) {
                 console.log(response.data.result.info);
-                $location.path("/supplierList");
+                $location.path("/productList");
                 $scope.SSuccess=response.data.result.info;
             }, function errorCallback(response) {
                 $scope.SError=response.data.error;

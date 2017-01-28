@@ -1,5 +1,5 @@
 
-app.controller("manageSupplierController",function ($scope, $auth, $state, $http, $rootScope){
+app.controller("manageProductController",function ($scope, $auth, $state, $http, $rootScope){
         $scope.totalPages   = 0;
         $scope.currentPage  = 0;
         $scope.range = 0;
@@ -8,7 +8,7 @@ app.controller("manageSupplierController",function ($scope, $auth, $state, $http
             
             var request = {
                 method:"POST",
-                url:"/api/getSupplierList?page="+page,
+                url:"/api/getProductList?page="+page,
                 data:{"searchValue":searchValue},
                 headers : {'Content-Type' : 'application/json'},
             };
@@ -39,12 +39,12 @@ app.controller("manageSupplierController",function ($scope, $auth, $state, $http
             $scope.delId = id;
         }
 
-        $scope.supplierDelete = function(){
+        $scope.productDelete = function(){
             console.log($scope.delId);
             var data = {"id":$scope.delId};
             var request = {
                     method:"POST",
-                    url:"/api/supplierDelete",
+                    url:"/api/productDelete",
                     data:data,
                     headers : {'Content-Type':'application/json'}   
             };

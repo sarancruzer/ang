@@ -9,6 +9,9 @@
 
     <link href="../assets/ui/css/animate.css" rel="stylesheet">
     <link href="../assets/ui/css/style.css" rel="stylesheet">
+
+    <link href="../assets/ui/css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
+
        
 
     </head>
@@ -38,6 +41,9 @@
     <!-- Peity -->
     <script src="../assets/ui/js/demo/peity-demo.js"></script>
 
+     <!-- Chosen -->
+    <script src="../assets/ui/js/plugins/chosen/chosen.jquery.js"></script>
+
     <script>
         $(document).ready(function(){
             $('.i-checks').iCheck({
@@ -61,8 +67,11 @@
     <script src="../app/modules/users/controllers/userController.js"></script>
     <script src="../app/modules/profile/controllers/profileController.js"></script>
     <script src="../app/modules/supplier/controllers/manageSupplierController.js"></script>
-    <script src="../app/modules/supplier/controllers/addSupplierController.js"></script>
+    <script src="../app/modules/supplier/controllers/supplierAddController.js"></script>
     <script src="../app/modules/supplier/controllers/supplierEditController.js"></script>
+    <script src="../app/modules/product/controllers/manageProductController.js"></script>
+    <script src="../app/modules/product/controllers/productAddController.js"></script>
+    <script src="../app/modules/product/controllers/productEditController.js"></script>
     
 
 </html>

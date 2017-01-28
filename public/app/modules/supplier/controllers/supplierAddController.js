@@ -1,7 +1,7 @@
 
-app.controller("addSupplierController",function ($scope, $auth, $state, $http, $rootScope,$location){
+app.controller("supplierAddController",function ($scope, $auth, $state, $http, $rootScope,$location){
         
-        $scope.addSupplierFunc = function(form){
+        $scope.supplierAddFunc = function(form){
 
             var data = $scope.supplier;
 
@@ -9,7 +9,7 @@ app.controller("addSupplierController",function ($scope, $auth, $state, $http, $
 
             var request = {
                 method:"POST",
-                url:"/api/addSupplier",
+                url:"/api/supplierAdd",
                 data:data,
                 headers : {'Content-Type' : 'application/json'},
             };

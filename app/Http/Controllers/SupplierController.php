@@ -35,13 +35,13 @@ class SupplierController extends Controller{
                         ->where(function($query) use ($searchValue)
                         {
                         if(!empty($searchValue)):
-                            $query->Where('s.supplier_name','like', $searchValue.'%');
+                            $query->Where('s.supplier_name','like', '%'.$searchValue.'%');
                         endif;
                         if(!empty($searchValue)):
-                            $query->orWhere('s.email','like', $searchValue.'%');
+                            $query->orWhere('s.email','like', '%'.$searchValue.'%');
                         endif;
                         if(!empty($searchValue)):
-                            $query->orWhere('s.mobile','like', $searchValue.'%');
+                            $query->orWhere('s.mobile','like', '%'.$searchValue.'%');
                         endif;
                      })
                         ->orderBy('id','desc')
@@ -53,9 +53,10 @@ class SupplierController extends Controller{
     		$result['info'] = $lists;
         	return response()->json(['result' => $result]);
     	}
+        return response()->json(['error' => "No Results Found"],401);
     }
 
-    public function addSupplier(Request $request){
+    public function supplierAdd(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
@@ -100,7 +101,7 @@ class SupplierController extends Controller{
     }
 
 
-     public function updateSupplier(Request $request){
+     public function supplierUpdate(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);

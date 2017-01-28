@@ -121,7 +121,7 @@ class ProductController extends Controller{
 
     } 
 
-     public function deleteProduct(Request $request){
+     public function productDelete(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
@@ -244,6 +244,24 @@ class ProductController extends Controller{
          return response()->json(['result' => 'your request has failed']);
 
     }
+
+    public function getAllSuppliers(Request $request){
+        $input = $request->all();
+        $token = $this->getToken($request);
+        $user = JWTAuth::toUser($token);
+
+        $lists = DB::table('suppliers')
+                        ->select('id','supplier_name')    
+                        ->get();
+        
+        $result = array();                        
+        if(count($lists)>0){
+            $result['info'] = $lists;
+            return response()->json(['result'=>$lists]);
+        }                
+
+        return response()->json(['error'=>'No Results Found']);
+    }    
 
 
 }

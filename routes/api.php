@@ -32,16 +32,18 @@ Route::group(["middleware"=>"jwt.auth"], function(){
 			Route::post('getUsers', 'AuthenticateController@getUsers');		
 
 			Route::post('getSupplierList', 'SupplierController@getSupplierList');		
-			Route::post('addSupplier', 'SupplierController@addSupplier');		
+			Route::post('supplierAdd', 'SupplierController@supplierAdd');		
 			Route::post('getSupplierById/{id}', 'SupplierController@getSupplierById');
-			Route::post('updateSupplier', 'SupplierController@updateSupplier');		
+			Route::post('supplierUpdate', 'SupplierController@supplierUpdate');		
 			Route::post('supplierDelete', 'SupplierController@supplierDelete');
 
 			Route::post('getProductList', 'ProductController@getProductList');		
-			Route::post('addProduct', 'ProductController@addProduct');		
-			Route::post('editProduct', 'ProductController@editProduct');
-			Route::post('updateProduct', 'ProductController@updateProduct');		
-			Route::post('deleteProduct', 'ProductController@deleteProduct');		
+			Route::post('productAdd', 'ProductController@addProduct');		
+			Route::post('getProductById', 'ProductController@getProductById');
+			Route::post('productUpdate', 'ProductController@productUpdate');		
+			Route::post('productDelete', 'ProductController@productDelete');		
+			Route::post('getAllSuppliers', 'ProductController@getAllSuppliers');		
+			
 
 			Route::post('productInward', 'ProductController@productInward');	
 

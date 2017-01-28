@@ -1,24 +1,21 @@
 
-app.controller("supplierEditController",function ($scope, $auth, $state, $http, $rootScope,$location,$stateParams){
+app.controller("productAddController",function ($scope, $auth, $state, $http, $rootScope,$location){
         
-        $scope.init = function(){
 
-            var data = $scope.supplier;
-            var id =$stateParams.id;
-
+         $scope.init= function(){
             var request = {
                 method:"POST",
-                url:"/api/getSupplierById/"+id,
-                data:{info:data},
+                url:"/api/getAllSuppliers",
+                data:{},
                 headers : {'Content-Type' : 'application/json'},
             };
             $http(request).then(function successCallback(response) {
+                $scope.suppliers = response.data.result;
+                console.log(response);
+                console.log($scope.suppliers);
                 
-                $scope.supplier = response.data.result.info[0];    
-                console.log(response.data.result.info);
-                $scope.SSuccess=response.data.result.info;
             }, function errorCallback(response) {
-                $scope.SError=response.data.error;
+                $scope.CPError=response.data.error;
                 if(response.status == 404){
                     $scope.CPError = response.statusText;
                 }
@@ -28,18 +25,19 @@ app.controller("supplierEditController",function ($scope, $auth, $state, $http, 
         $scope.init();
 
 
-        $scope.supplierUpdate = function(form){
+        $scope.productAddFunc = function(form){
             var data = $scope.supplier;
             console.log(data);
             var request = {
                 method:"POST",
-                url:"/api/supplierUpdate",
+                url:"/api/productAdd",
                 data:data,
                 headers : {'Content-Type' : 'application/json'},
             };
             $http(request).then(function successCallback(response) {
+                
                 console.log(response.data.result.info);
-                $location.path("/supplierList");
+                $location.path("/productList");
                 $scope.SSuccess=response.data.result.info;
             }, function errorCallback(response) {
                 $scope.SError=response.data.error;
@@ -48,7 +46,8 @@ app.controller("supplierEditController",function ($scope, $auth, $state, $http, 
                 }
             });
         };
-      
+
+     
 
         
 });

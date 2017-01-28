@@ -31,10 +31,10 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                   controller : 'manageSupplierController as manageSupplier',
                   pageTitile : 'Suppliers'
                 })
-                .state('layout.addSupplier',{
-                  url : '/addSupplier',
-                  templateUrl : '/app/modules/supplier/views/_addSupplier.html',
-                  controller: 'addSupplierController as addSupplier',
+                .state('layout.supplierAdd',{
+                  url : '/supplierAdd',
+                  templateUrl : '/app/modules/supplier/views/_supplierAdd.html',
+                  controller: 'supplierAddController as addSupplier',
                   pageTitle : 'Add Supplier'
                 })
                 .state('layout.supplierEdit',{
@@ -42,6 +42,24 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                   templateUrl:'/app/modules/supplier/views/_supplierEdit.html',
                   controller:'supplierEditController as supplierEdit',
                   pageTitle:'Edit Supplier'
+                })
+                .state('layout.productList',{
+                  url : '/productList',
+                  templateUrl : '/app/modules/product/views/_productList.html',
+                  controller : 'manageProductController as manageProduct',
+                  pageTitile : 'Products'
+                })
+                .state('layout.productAdd',{
+                  url : '/productAdd',
+                  templateUrl : '/app/modules/product/views/_productAdd.html',
+                  controller: 'productAddController as addProduct',
+                  pageTitle : 'Add Product'
+                })
+                .state('layout.productEdit',{
+                  url:'/productEdit/:id',
+                  templateUrl:'/app/modules/product/views/_productEdit.html',
+                  controller:'productEditController as productEdit',
+                  pageTitle:'Edit Product'
                 })
 
         });
