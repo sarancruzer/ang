@@ -2,7 +2,7 @@
 app.controller("productAddController",function ($scope, $auth, $state, $http, $rootScope,$location){
         
 
-         $scope.init= function(){
+         $scope.getAllSuppliers= function(){
             var request = {
                 method:"POST",
                 url:"/api/getAllSuppliers",
@@ -22,11 +22,11 @@ app.controller("productAddController",function ($scope, $auth, $state, $http, $r
             });
         };
 
-        $scope.init();
+        $scope.getAllSuppliers();
 
 
         $scope.productAddFunc = function(form){
-            var data = $scope.supplier;
+            var data = $scope.product;
             console.log(data);
             var request = {
                 method:"POST",

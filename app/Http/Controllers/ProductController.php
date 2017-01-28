@@ -35,7 +35,7 @@ class ProductController extends Controller{
                         ->where(function($query) use ($searchValue)
                         {
                         if(!empty($searchValue)):
-                            $query->Where('p.product_name','like', $searchValue.'%');
+                            $query->Where('p.product_name','like', '%'.$searchValue.'%');
                         endif;
                         
                      })
@@ -47,9 +47,10 @@ class ProductController extends Controller{
     		$result['info'] = $lists;
         	return response()->json(['result' => $result]);
     	}
+            return response()->json(['error' => 'No Results Found'],401);
     }
 
-    public function addProduct(Request $request){
+    public function productAdd(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
@@ -76,12 +77,12 @@ class ProductController extends Controller{
 
     }
 
-     public function editProduct(Request $request){
+     public function getProductById(Request $request,$id){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
 
-        $product_id = $input['product_id'];
+        $product_id = $id;
         $lists = DB::table('products')
                         ->where('id','=',$product_id)
                         ->get();
@@ -97,12 +98,12 @@ class ProductController extends Controller{
     }
 
 
-     public function updateProduct(Request $request){
+     public function productUpdate(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
 
-        $product_id = $input['product_id'];
+        $product_id = $input['id'];
 
         $data['supplier_id'] = $input['supplier_id'];
         $data['product_code'] = $input['product_code'];

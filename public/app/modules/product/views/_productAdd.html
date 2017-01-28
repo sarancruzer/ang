@@ -32,13 +32,13 @@
                     <div class="ibox-content">
                             
 
-                            <form class="form-horizontal" method="post"  name="addSupplierForm" ng-submit="addSupplierFunc(addSupplierForm)"  enctype="multipart/form-data">
+                            <form class="form-horizontal" method="post"  name="productAddForm" ng-submit="productAddFunc(productAddForm)"  enctype="multipart/form-data">
 
                                 <div class="form-group"><label class="col-sm-2 control-label">Supplier Name</label>
 
                                     <div class="col-sm-6">
                                        
-                                       <select data-placeholder="Choose a Country..." class="chosen-select"  tabindex="2"   ng-model="supplier_name" ng-options="supp.id as supp.supplier_name for supp in suppliers track by supp.id" >
+                                       <select  class="form-control"  tabindex="2"   ng-model="product.supplier_id" ng-options="supp.id as supp.supplier_name for supp in suppliers track by supp.id" >
                                             <option value=""> -- Select an Suppier -- </option>
                                             </select>               
 
@@ -47,28 +47,28 @@
                                 
                                 <div class="form-group"><label class="col-sm-2 control-label">Product Code</label>
 
-                                    <div class="col-sm-6"><input type="text" placeholder="Product Code" class="form-control" name="product_code" ng-model="supplier.product_code"></div>
+                                    <div class="col-sm-6"><input type="text" placeholder="Product Code" class="form-control" name="product_code" ng-model="product.product_code"></div>
                                 </div>
                                 
                                 <div class="form-group"><label class="col-sm-2 control-label">Product Name</label>
 
-                                    <div class="col-sm-6"><input type="text" placeholder="Product Name" class="form-control" name="product_name" ng-model="supplier.product_name"></div>
+                                    <div class="col-sm-6"><input type="text" placeholder="Product Name" class="form-control" name="product_name" ng-model="product.product_name"></div>
                                 </div>
                                 
                                 <div class="form-group"><label class="col-sm-2 control-label">Product Cost</label>
 
-                                    <div class="col-sm-6"><textarea rows="5" placeholder="Product Cost" class="form-control" name="product_cost" ng-model="supplier.product_cost"></textarea></div>
+                                    <div class="col-sm-6"><input type="text" placeholder="Product Cost" class="form-control" name="product_cost" ng-model="product.product_cost"></textarea></div>
                                 </div>
                                 
                                 <div class="form-group"><label class="col-sm-2 control-label">Percentage</label>
 
-                                    <div class="col-sm-6"><input type="text" placeholder="Percentage" class="form-control" name="percentage" ng-model="supplier.percentage"></div>
+                                    <div class="col-sm-6"><input type="text" placeholder="Percentage" class="form-control" name="percentage" ng-model="product.percentage"></div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
                               
                                 <div class="form-group">
                                     <div class="col-sm-12 col-sm-offset-4">
-                                        <a href="#/supplierList" ><button class="btn btn-white" type="button">Cancel</button></a>
+                                        <a href="#/productList" ><button class="btn btn-white" type="button">Cancel</button></a>
                                         <button class="btn btn-primary" type="submit">Save changes</button>
                                     </div>
                                 </div>

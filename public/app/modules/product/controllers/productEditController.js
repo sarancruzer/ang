@@ -3,7 +3,7 @@ app.controller("productEditController",function ($scope, $auth, $state, $http, $
         
         $scope.init = function(){
 
-            var data = $scope.supplier;
+            var data = $scope.product;
             var id =$stateParams.id;
 
             var request = {
@@ -14,7 +14,7 @@ app.controller("productEditController",function ($scope, $auth, $state, $http, $
             };
             $http(request).then(function successCallback(response) {
                 
-                $scope.supplier = response.data.result.info[0];    
+                $scope.product = response.data.result.info[0];    
                 console.log(response.data.result.info);
                 $scope.SSuccess=response.data.result.info;
             }, function errorCallback(response) {
@@ -25,11 +25,38 @@ app.controller("productEditController",function ($scope, $auth, $state, $http, $
             });
         };
 
-        $scope.init();
+
+
+
+
+        $scope.getAllSuppliers= function(){
+            var request = {
+                method:"POST",
+                url:"/api/getAllSuppliers",
+                data:{},
+                headers : {'Content-Type' : 'application/json'},
+            };
+            $http(request).then(function successCallback(response) {
+                $scope.suppliers = response.data.result;
+                console.log(response);
+                console.log($scope.suppliers);
+                
+            }, function errorCallback(response) {
+                $scope.CPError=response.data.error;
+                if(response.status == 404){
+                    $scope.CPError = response.statusText;
+                }
+            });
+        };
+
+        $scope.getAllSuppliers();
+                $scope.init();
 
 
         $scope.productUpdate = function(form){
-            var data = $scope.supplier;
+            $scope.product.id =$stateParams.id;
+            var data = $scope.product;
+            
             console.log(data);
             var request = {
                 method:"POST",
