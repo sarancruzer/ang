@@ -143,7 +143,7 @@ class ProductController extends Controller{
 
     }   
 
-    public function productInwardd(Request $request){
+    public function productInwarddd(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
@@ -202,7 +202,7 @@ class ProductController extends Controller{
 
 
 
-    public function productInwardd(Request $request){
+    public function productInward(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
@@ -264,5 +264,64 @@ class ProductController extends Controller{
         return response()->json(['error'=>'No Results Found']);
     }    
 
+    public function getProductinwardList(Request $request){
+         $input = $request->all();   
+         $token = $this->getToken($request);
+         $user = JWTAuth::toUser($token);
+
+         $lists = DB::table('product_inward as pi')
+                        ->leftjoin('products as p','p.id','=','pi.product_id')
+                        ->select('p.product_code','p.product_name','pi.*')
+                        ->paginate(10);
+
+         $result = array();
+         if(count($lists)>0){
+            $result['info']=$lists;
+            return response()->json(['result'=>$result]);
+         }  
+         return response()->json(['error'=>'No Results Found'],401);
+
+
+
+    }
+
+    public function getProductinwardById(Request $request,$id){
+        $input = $request->all();
+        $token = $this->getToken($request);
+        $user = JWTAuth::toUser($token);
+
+        $product_inward_id = $id;
+        $lists = DB::table('product_inward')
+                        ->where('id','=',$product_inward_id)
+                        ->first();
+
+        $result = array();          
+        if(count($lists) > 0){
+            $result['info'] = $lists;
+            return response()->json(['result' => $result]);
+        }
+
+        return response()->json(['error' => 'No Results Found'],401);
+
+    }
+
+
+    public function getAllProducts(Request $request){
+        $input = $request->all();
+        $token = $this->getToken($request);
+        $user = JWTAuth::toUser($token);
+
+        $lists = DB::table('products')
+                        ->select('id','product_code','product_name')    
+                        ->get();
+        
+        $result = array();                        
+        if(count($lists)>0){
+            $result['info'] = $lists;
+            return response()->json(['result'=>$lists]);
+        }                
+
+        return response()->json(['error'=>'No Results Found']);
+    }    
 
 }

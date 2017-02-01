@@ -63,7 +63,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 })
                 .state('layout.productinwardList',{
                   url : '/productinwardList',
-                  templateUrl : '/app/modules/productinward/views/_productinwwardList.html',
+                  templateUrl : '/app/modules/productinward/views/_productinwardList.html',
                   controller : 'manageProductinwardController as manageProductinward',
                   pageTitile : 'Products '
                 })
@@ -79,6 +79,7 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                   controller:'productinwardEditController as productinwardEdit',
                   pageTitle:'Edit Product'
                 })
+
 
         });
 

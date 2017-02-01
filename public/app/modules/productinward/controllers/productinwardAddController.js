@@ -2,15 +2,15 @@
 app.controller("productinwardAddController",function ($scope, $auth, $state, $http, $rootScope,$location){
         
 
-         $scope.getAllSuppliers= function(){
+         $scope.getAllProducts= function(){
             var request = {
                 method:"POST",
-                url:"/api/getAllSuppliers",
+                url:"/api/getAllProducts",
                 data:{},
                 headers : {'Content-Type' : 'application/json'},
             };
             $http(request).then(function successCallback(response) {
-                $scope.suppliers = response.data.result;
+                $scope.products = response.data.result;
                 console.log(response);
                 console.log($scope.suppliers);
                 
@@ -22,8 +22,12 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
             });
         };
 
-        $scope.getAllSuppliers();
+        $scope.getAllProducts();
 
+        $scope.getProductData = function(){
+            console.log($scope.productinward.product_id);
+            
+        }
 
         $scope.productinwardAddFunc = function(form){
             var data = $scope.product;

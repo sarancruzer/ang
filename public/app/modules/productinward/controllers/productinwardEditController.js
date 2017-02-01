@@ -14,7 +14,7 @@ app.controller("productinwardEditController",function ($scope, $auth, $state, $h
             };
             $http(request).then(function successCallback(response) {
                 
-                $scope.product = response.data.result.info[0];    
+                $scope.product = response.data.result.info;    
                 console.log(response.data.result.info);
                 $scope.SSuccess=response.data.result.info;
             }, function errorCallback(response) {

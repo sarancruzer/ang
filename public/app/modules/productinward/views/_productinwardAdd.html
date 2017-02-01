@@ -26,49 +26,55 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Add Supplier  </h5>
+                        <h5>Product Inward  </h5>
                         
                     </div>
                     <div class="ibox-content">
                             
 
-                            <form class="form-horizontal" method="post"  name="productAddForm" ng-submit="productAddFunc(productAddForm)"  enctype="multipart/form-data">
+                            <form class="form-horizontal" method="post"  name="productinwardAddForm" ng-submit="productinwardAddFunc(productinwardAddForm)"  enctype="multipart/form-data">
 
-                                <div class="form-group"><label class="col-sm-2 control-label">Supplier Name</label>
+                                <div class="form-group"><label class="col-sm-2 control-label">Product Code / Product Name</label>
 
                                     <div class="col-sm-6">
                                        
-                                       <select  class="form-control"  tabindex="2"   ng-model="product.supplier_id" ng-options="supp.id as supp.supplier_name for supp in suppliers track by supp.id" >
-                                            <option value=""> -- Select an Suppier -- </option>
+                                       <select  class="form-control"  tabindex="2"   ng-model="productinward.product_id" ng-options="prod.id as prod.product_name for prod in products track by prod.id" ng-change="getProductData()">
+                                            <option value=""> -- Select an Product -- </option>
                                             </select>               
 
                                     </div>
                                 </div>
-                                
-                                <div class="form-group"><label class="col-sm-2 control-label">Product Code</label>
 
-                                    <div class="col-sm-6"><input type="text" placeholder="Product Code" class="form-control" name="product_code" ng-model="product.product_code"></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Unit Cost</label>
+
+                                    <div class="col-sm-6"><input type="text" placeholder="Unit Cost" class="form-control" name="unit_cost" ng-model="productinward.unit_cost"></div>
                                 </div>
                                 
-                                <div class="form-group"><label class="col-sm-2 control-label">Product Name</label>
+                                <div class="form-group"><label class="col-sm-2 control-label">Quantity</label>
 
-                                    <div class="col-sm-6"><input type="text" placeholder="Product Name" class="form-control" name="product_name" ng-model="product.product_name"></div>
+                                    <div class="col-sm-6"><input type="text" placeholder="Quantity" class="form-control" name="quantity" ng-model="productinward.quantity"></div>
                                 </div>
                                 
-                                <div class="form-group"><label class="col-sm-2 control-label">Product Cost</label>
-
-                                    <div class="col-sm-6"><input type="text" placeholder="Product Cost" class="form-control" name="product_cost" ng-model="product.product_cost"></textarea></div>
-                                </div>
                                 
-                                <div class="form-group"><label class="col-sm-2 control-label">Percentage</label>
+                                
+                                <div class="form-group"><label class="col-sm-2 control-label">Total Cost</label>
 
-                                    <div class="col-sm-6"><input type="text" placeholder="Percentage" class="form-control" name="percentage" ng-model="product.percentage"></div>
+                                    <div class="col-sm-6"><input type="text" placeholder="Total Cost" class="form-control" name="total_cost" ng-model="productinward.total_cost"></div>
                                 </div>
+
+                                <div class="form-group"><label class="col-sm-2 control-label">Invoice No</label>
+                                    <div class="col-sm-6"><input type="text" placeholder="Invoice No" class="form-control" name="invoice_no" ng-model="productinward.invoice_no"></div>
+                                </div>
+
+                                <div class="form-group"><label class="col-sm-2 control-label">Invoice Date</label>
+                                    <div class="col-sm-6"><input type="text" placeholder="Invoice Date" class="form-control" name="invoice_date" ng-model="productinward.invoice_date"></div>
+                                </div>
+
+
                                 <div class="hr-line-dashed"></div>
-                              
-                                <div class="form-group">
+                              <div class="form-group">
                                     <div class="col-sm-12 col-sm-offset-4">
-                                        <a href="#/productList" ><button class="btn btn-white" type="button">Cancel</button></a>
+                                        <a href="#/productinwardList" ><button class="btn btn-white" type="button">Cancel</button></a>
                                         <button class="btn btn-primary" type="submit">Save changes</button>
                                     </div>
                                 </div>
