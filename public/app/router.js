@@ -61,6 +61,24 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                   controller:'productEditController as productEdit',
                   pageTitle:'Edit Product'
                 })
+                .state('layout.productinwardList',{
+                  url : '/productinwardList',
+                  templateUrl : '/app/modules/productinward/views/_productinwwardList.html',
+                  controller : 'manageProductinwardController as manageProductinward',
+                  pageTitile : 'Products '
+                })
+                .state('layout.productinwardAdd',{
+                  url : '/productinwardAdd',
+                  templateUrl : '/app/modules/productinward/views/_productinwardAdd.html',
+                  controller: 'productinwardAddController as productinwardAdd',
+                  pageTitle : 'Add Product'
+                })
+                .state('layout.productinwardEdit',{
+                  url:'/productinwardEdit/:id',
+                  templateUrl:'/app/modules/productinward/views/_productinwardEdit.html',
+                  controller:'productinwardEditController as productinwardEdit',
+                  pageTitle:'Edit Product'
+                })
 
         });
 

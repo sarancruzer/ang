@@ -143,7 +143,7 @@ class ProductController extends Controller{
 
     }   
 
-    public function productInward(Request $request){
+    public function productInwardd(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);

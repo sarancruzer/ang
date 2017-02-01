@@ -72,6 +72,10 @@
     <script src="../app/modules/product/controllers/manageProductController.js"></script>
     <script src="../app/modules/product/controllers/productAddController.js"></script>
     <script src="../app/modules/product/controllers/productEditController.js"></script>
+    <script src="../app/modules/productinward/controllers/manageProductinwardController.js"></script>
+    <script src="../app/modules/productinward/controllers/productinwardAddController.js"></script>
+    <script src="../app/modules/productinward/controllers/productinwardEditController.js"></script>
+
     
 
 </html>
