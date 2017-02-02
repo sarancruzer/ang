@@ -12,6 +12,8 @@
 
     <link href="../assets/ui/css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
 
+    <link href="../assets/ui/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
        
 
     </head>
@@ -43,6 +45,10 @@
 
      <!-- Chosen -->
     <script src="../assets/ui/js/plugins/chosen/chosen.jquery.js"></script>
+
+       <!-- Data picker -->
+   <script src="../assets/ui/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
 
     <script>
         $(document).ready(function(){

@@ -11,9 +11,6 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
             };
             $http(request).then(function successCallback(response) {
                 $scope.products = response.data.result;
-                console.log(response);
-                console.log($scope.suppliers);
-                
             }, function errorCallback(response) {
                 $scope.CPError=response.data.error;
                 if(response.status == 404){
@@ -24,9 +21,30 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
 
         $scope.getAllProducts();
 
-        $scope.getProductData = function(){
-            console.log($scope.productinward.product_id);
-            
+        $scope.getProductByChange = function(){
+            console.log($scope.productinward.product);
+
+            var request = {
+                method:"POST",
+                url:"/api/getProductCost",
+                data:{productId:$scope.productinward.product},
+                headers : {'Content-Type' : 'application/json'},
+            };
+            $http(request).then(function successCallback(response) {
+                $scope.productinward.unit_cost = response.data.result;
+            }, function errorCallback(response) {
+                $scope.CPError=response.data.error;
+                if(response.status == 404){
+                    $scope.CPError = response.statusText;
+                }
+            });
+     
+        }
+
+        $scope.calcTotalCost = function(){
+
+            $scope.productinward.total_cost = $scope.productinward.unit_cost * $scope.productinward.quantity;
+
         }
 
         $scope.productinwardAddFunc = function(form){
@@ -51,22 +69,7 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
             });
         };
 
-
-      
-
-  $scope.countriesList = [{
-    name: 'Sweden'
-  }, {
-    name: 'Norway'
-  }, {
-    name: 'Denmark'
-  }];
-
-
-
-     
-
-        
+       
 });
 
 
@@ -74,7 +77,13 @@ app.directive('chosen', function($timeout) {
 
   var linker = function(scope, element, attr) {
 
-    $timeout(function () {
+    scope.$watch('products', function() {
+      $timeout(function() {
+        element.trigger('chosen:updated');
+      }, 0, false);
+    }, true);
+
+    $timeout(function() {
       element.chosen();
     }, 0, false);
   };

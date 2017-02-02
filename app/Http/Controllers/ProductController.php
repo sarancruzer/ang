@@ -324,4 +324,22 @@ class ProductController extends Controller{
         return response()->json(['error'=>'No Results Found']);
     }    
 
+    public function getProductCost(Request $request){
+            $input = $request->all();
+            $token = $this->getToken($request);
+            $user = JWTAuth::toUser($token);
+
+            $productId = $input['productId'];
+
+            $lists = DB::table('products')
+                            ->select('product_cost','percentage')
+                            ->where('id','=',$productId)
+                            ->first();
+            $productCost = ($lists->product_cost * $lists->percentage) / 100;
+            $unit_cost = $lists->product_cost + $productCost;
+            if(count($lists)>0){
+                return response()->json(['result'=>$unit_cost]);
+            }                
+
+    }
 }

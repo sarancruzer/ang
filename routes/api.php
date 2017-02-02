@@ -52,6 +52,9 @@ Route::group(["middleware"=>"jwt.auth"], function(){
 			Route::post('productinwardUpdate', 'ProductController@productinwardUpdate');		
 			Route::post('productinwardDelete', 'ProductController@productinwardDelete');	
 			Route::post('getAllProducts', 'ProductController@getAllProducts');	
+			Route::post('getProductCost', 'ProductController@getProductCost');	
+			
+
 			
 
 
