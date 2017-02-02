@@ -1,4 +1,7 @@
-
+    <link data-require="chosen@*" data-semver="1.0.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.min.css" />
+    <script data-require="chosen@*" data-semver="1.0.0" src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.jquery.min.js"></script>
+    <script data-require="chosen@*" data-semver="1.0.0" src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.proto.min.js"></script>
+   
 
         <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
@@ -38,9 +41,7 @@
 
                                     <div class="col-sm-6">
                                        
-                                       <select  class="form-control"  tabindex="2"   ng-model="productinward.product_id" ng-options="prod.id as prod.product_name for prod in products track by prod.id" ng-change="getProductData()">
-                                            <option value=""> -- Select an Product -- </option>
-                                            </select>               
+                                      <select chosen="" ng-model="countries" id="countries" ng-options="country.name for country in countriesList" data-placeholder="Select Countries" class="span chzn-select " style="width: 100%"></select>
 
                                     </div>
                                 </div>
@@ -92,3 +93,13 @@
     $('.chosen-select').chosen({width: "100%"});
 
 </script>
+
+<style type="text/css">
+    
+    #countries_chosen > a
+    {
+            border-radius: 0px;
+    padding: 5px;
+}
+    }
+</style>

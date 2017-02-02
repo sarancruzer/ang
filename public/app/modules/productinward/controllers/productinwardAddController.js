@@ -51,7 +51,36 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
             });
         };
 
+
+      
+
+  $scope.countriesList = [{
+    name: 'Sweden'
+  }, {
+    name: 'Norway'
+  }, {
+    name: 'Denmark'
+  }];
+
+
+
      
 
         
+});
+
+
+app.directive('chosen', function($timeout) {
+
+  var linker = function(scope, element, attr) {
+
+    $timeout(function () {
+      element.chosen();
+    }, 0, false);
+  };
+
+  return {
+    restrict: 'A',
+    link: linker
+  };
 });
