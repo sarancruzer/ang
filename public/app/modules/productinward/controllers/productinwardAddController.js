@@ -69,6 +69,56 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
             });
         };
 
+
+        $scope.productinwards = [
+        {
+            'fname':'Muhammed',
+            'lname':'Shanid',
+            'email':'shanid@shanid.com'
+        },
+        {
+            'fname':'John',
+            'lname':'Abraham',
+            'email':'john@john.com'
+        },
+        {
+            'fname':'Roy',
+            'lname':'Mathew',
+            'email':'roy@roy.com'
+        }];
+    
+        $scope.addNew = function(personalDetail){
+            $scope.productinwards.push({ 
+                'fname': "", 
+                'lname': "",
+                'email': "",
+            });
+        };
+    
+        $scope.remove = function(){
+            var newDataList=[];
+            $scope.selectedAll = false;
+            angular.forEach($scope.productinwards, function(selected){
+                if(!selected.selected){
+                    newDataList.push(selected);
+                }
+            }); 
+            $scope.productinwards = newDataList;
+        };
+    
+    $scope.checkAll = function () {
+        if (!$scope.selectedAll) {
+            $scope.selectedAll = true;
+        } else {
+            $scope.selectedAll = false;
+        }
+        angular.forEach($scope.productinwards, function(productinward) {
+            productinward.selected = $scope.selectedAll;
+        });
+    };
+
+
+
        
 });
 
