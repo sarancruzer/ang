@@ -2,7 +2,7 @@
 <html ng-app="authApp">
     <head>
         <meta charset="utf-8">
-        <title>Angular-Laravel Authentication</title>
+        <title>Im Tool Version 1.0</title>
 
     <link href="../assets/ui/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/ui/font-awesome/css/font-awesome.css" rel="stylesheet">

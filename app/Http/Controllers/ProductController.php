@@ -143,22 +143,21 @@ class ProductController extends Controller{
 
     }   
 
-    public function productInwarddd(Request $request){
+    public function productinwardAdd(Request $request){
         $input = $request->all();
         $token = $this->getToken($request);
         $user = JWTAuth::toUser($token);
         date_default_timezone_set('Asia/Kolkata');
 
+        print_r($input);
         $total_cost = round($input['quantity'] * $input['unit_cost']);
         $data = array(
            'product_id' => $input['product_id'],
-           'supplier_id' => $input['supplier_id'],
            'quantity' => $input['quantity'],
            'unit_cost' => $input['unit_cost'],
            'total_cost' => $input['total_cost'],
            'invoice_no' => $input['invoice_no'],
-           "invoice_date"=>date('Y-m-d'),
-           "total_amount"=>$input['total_amount'],
+           "invoice_date"=>$input['invoice_date'],
            "created_at"=>date('Y-m-d'),
             );
 
@@ -178,25 +177,24 @@ class ProductController extends Controller{
 
 
     public function addProductToStock($data){
-
-        print_r($data);
-        $total_cost = round($input['quantity'] * $input['unit_cost']);
-        
         $exists_product = DB::table('stock')
                                 ->where('product_id','=',$data['product_id'])
-                                ->get();
+                                ->first();
+        
+        unset($data['invoice_no']);                                
+        unset($data['invoice_date']);                                
 
 
-        $lists = DB::table('stock')->insertGetId($data);            
-        $result = array(); 
         if(count($exists_product)>0){
-
+            $data['quantity'] = $data['quantity']+$exists_product->quantity;
+            $data['unit_cost'] = $exists_product->unit_cost;
+            $data['total_cost'] =  ($data['quantity']*$exists_product->unit_cost)+$exists_product->total_cost;
+       }
+        if(count($exists_product)>0){
+            $lists = DB::table('stock')->where('product_id','=',$data['product_id'])->update($data);
+       }else{
             $lists = DB::table('stock')->insertGetId($data);
-         
-           $result['info'] = 'product has been added successfully '; 
-           return response()->json(['result' => $result]);
-        }                            
-         return response()->json(['result' => 'your request has failed']);
+       }                            
 
     }
 
@@ -272,7 +270,8 @@ class ProductController extends Controller{
          $lists = DB::table('product_inward as pi')
                         ->leftjoin('products as p','p.id','=','pi.product_id')
                         ->select('p.product_code','p.product_name','pi.*')
-                        ->paginate(10);
+                        ->orderBy('p.id','desc')
+                        ->paginate(5);
 
          $result = array();
          if(count($lists)>0){

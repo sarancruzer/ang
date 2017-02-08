@@ -27,7 +27,7 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
             var request = {
                 method:"POST",
                 url:"/api/getProductCost",
-                data:{productId:$scope.productinward.product},
+                data:{productId:$scope.productinward.product_id},
                 headers : {'Content-Type' : 'application/json'},
             };
             $http(request).then(function successCallback(response) {
@@ -48,7 +48,7 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
         }
 
         $scope.productinwardAddFunc = function(form){
-            var data = $scope.product;
+            var data = $scope.productinward;
             console.log(data);
             var request = {
                 method:"POST",

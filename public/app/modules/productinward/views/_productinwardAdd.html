@@ -35,7 +35,7 @@
                                 <div class="form-group"><label class="col-sm-2 control-label">Product Code / Product Name</label>
 
                                     <div class="col-sm-6">
-                                      <select chosen="" data-placeholder="Choose a product..." class="chosen-select" ng-model="productinward.product" ng-options="product.id as product.product_name for product in products"  tabindex="2" ng-change="getProductByChange()">
+                                      <select chosen="" data-placeholder="Choose a product..." class="chosen-select" ng-model="productinward.product_id" ng-options="product.id as product.product_name for product in products"  tabindex="2" ng-change="getProductByChange()">
                                         </select>
                                     </div>
                                 </div>
@@ -89,7 +89,8 @@
                 keyboardNavigation: false,
                 forceParse: false,
                 calendarWeeks: true,
-                autoclose: true
+                autoclose: true,
+                format:'yyyy-mm-dd'
             });
 </script>
 <style type="text/css">
