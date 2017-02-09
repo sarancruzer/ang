@@ -21,16 +21,23 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
 
         $scope.getAllProducts();
 
-        $scope.getProductByChange = function(){
-            console.log($scope.productinward.product);
+        $scope.getProductByChange = function(productId,index){
+            console.log($scope.productinward.product[index]);
+
+            console.log(productId);
+            console.log(index);
+
 
             var request = {
                 method:"POST",
                 url:"/api/getProductCost",
-                data:{productId:$scope.productinward.product_id},
+                data:{productId:productId},
                 headers : {'Content-Type' : 'application/json'},
             };
             $http(request).then(function successCallback(response) {
+                console.log(response);
+                console.log($scope.productinward.unit_cost);
+
                 $scope.productinward.unit_cost = response.data.result;
             }, function errorCallback(response) {
                 $scope.CPError=response.data.error;
@@ -70,54 +77,15 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
         };
 
 
-        $scope.productinwards = [
-        {
-            'fname':'Muhammed',
-            'lname':'Shanid',
-            'email':'shanid@shanid.com'
-        },
-        {
-            'fname':'John',
-            'lname':'Abraham',
-            'email':'john@john.com'
-        },
-        {
-            'fname':'Roy',
-            'lname':'Mathew',
-            'email':'roy@roy.com'
-        }];
+        $scope.productinwards = [{},{},{}];
     
         $scope.addNew = function(personalDetail){
-            $scope.productinwards.push({ 
-                'fname': "", 
-                'lname': "",
-                'email': "",
-            });
+            $scope.productinwards.push({});
         };
-    
-        $scope.remove = function(){
-            var newDataList=[];
-            $scope.selectedAll = false;
-            angular.forEach($scope.productinwards, function(selected){
-                if(!selected.selected){
-                    newDataList.push(selected);
-                }
-            }); 
-            $scope.productinwards = newDataList;
-        };
-    
-    $scope.checkAll = function () {
-        if (!$scope.selectedAll) {
-            $scope.selectedAll = true;
-        } else {
-            $scope.selectedAll = false;
+
+        $scope.remove = function(index){
+            $scope.productinwards.splice(index, 1);
         }
-        angular.forEach($scope.productinwards, function(productinward) {
-            productinward.selected = $scope.selectedAll;
-        });
-    };
-
-
 
        
 });

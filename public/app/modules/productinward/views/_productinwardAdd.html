@@ -62,14 +62,15 @@
                                         <th>Unit Cost</th>
                                         <th>Quantity</th>
                                         <th>Total Cost</th>
+                                        <th>#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="productinward in productinwards">
+                                    <tr ng-repeat="row in productinwards">
                                         <td>
                                             <input type="checkbox" ng-model="personalDetail.selected"/></td>
                                         <td>
-                                            <select chosen="" data-placeholder="Choose a product..." class="chosen-select" ng-model="productinward.product_id" ng-options="product.id as product.product_name for product in products"  tabindex="2" >
+                                            <select chosen="" data-placeholder="Choose a product..." class="form-control" ng-model="productinward.product_id" ng-options="product.id as product.product_name for product in products"  tabindex="2"  ng-change="getProductByChange(productinward.product_id,$index)">
                                         </select>
                                     </td>
                                         <td>
@@ -79,13 +80,16 @@
                                             <td>
                                                 <input type="text" placeholder="Total Cost" class="form-control" name="total_cost" ng-model="productinward.total_cost">
                                             </td>
+                                            <td>
+                                                <button type="button" class="btn btn-xs btn-danger" ng-click="remove($index)" ><i class="fa fa-trash"></i></button>
+                                            </td>
                                     </tr>
                                 </tbody>
                             </table>
 
                             <div class="form-group">
-                                <input ng-hide="!productinwards.length" type="button" class="btn btn-danger pull-right" ng-click="remove()" value="Remove">
-                                <input type="button" ng-click="addNew()" class="btn btn-primary addnew pull-right" value="Add New">
+                                <!-- <input ng-hide="!productinwards.length" type="button" class="btn btn-danger pull-right" ng-click="remove()" value="Remove"> -->
+                                <input type="button" ng-click="addNew()" class="btn btn-success addnew pull-right" value="Add New">
                             </div>
                                                    
                                 <div class="hr-line-dashed"></div>
@@ -131,4 +135,14 @@
     padding: 5px;
     border-radius: 0px;
     }   
+
+
+
+
+    /*-------------*/
+
+    #page-wrapper > div:nth-child(3) > div.wrapper.wrapper-content.animated.fadeInRight.ng-scope > div > div > div > div.ibox-content > form > table > tbody > tr > td:nth-child(2) > div
+    {
+        width: 250px !important;
+    }
 </style>
