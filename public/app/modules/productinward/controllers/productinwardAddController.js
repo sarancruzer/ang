@@ -21,8 +21,9 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
 
         $scope.getAllProducts();
 
+    $scope.productinward = [];
         $scope.getProductByChange = function(productId,index){
-            console.log($scope.productinward.unit_cost);
+            console.log($scope.productinward[index].unit_cost);
 
             console.log(productId);
             console.log(index);
@@ -36,9 +37,9 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
             };
             $http(request).then(function successCallback(response) {
                 console.log(response);
-                console.log($scope.productinward.unit_cost);
+                console.log($scope.productinward[index].unit_cost);
 
-                $scope.productinward.unit_cost = response.data.result;
+                $scope.productinward[index].unit_cost = response.data.result;
             }, function errorCallback(response) {
                 $scope.CPError=response.data.error;
                 if(response.status == 404){
@@ -75,7 +76,6 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
                 }
             });
         };
-
 
         $scope.productinwards = [{},{},{}];
     

@@ -1,3 +1,80 @@
+
+
+ <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>Static Tables</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index-2.html">Home</a>
+                        </li>
+                        <li>
+                            <a>Tables</a>
+                        </li>
+                        <li class="active">
+                            <strong>Add Supplier</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Product Inward  </h5>
+                        
+                    </div>
+                    <div class="ibox-content">
+                            
+                          <form >
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" ng-model="selectedAll" ng-click="checkAll()" /></th>
+                                        <th>Firstname</th>
+                                        <th>Lastname</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in personalDetails">
+                                        <td>
+                                            <input type="checkbox" ng-model="personalDetail.selected" /></td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="personalDetail[$index].fname" ng-change="check($index)" /></td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="personalDetail[$index].lname" /></td>
+                                        <td>
+                                            <input type="email" class="form-control" ng-model="personalDetail.email" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="form-group">
+                                <input ng-hide="!personalDetails.length" type="button" class="btn btn-danger pull-right" ng-click="remove()" value="Remove">
+                                <input type="button"  class="btn btn-primary addnew pull-right" ng-click="addNew()" value="Add New">
+                            </div>
+                        </form>
+
+                           
+
+                                </div>
+
+                                </div>
+
+                                </div>
+                                </div>
+
+
+
+
+
+
         <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
                     <h2>Static Tables</h2>
@@ -70,18 +147,18 @@
                                         <td>
                                             <input type="checkbox" ng-model="personalDetail.selected"/></td>
                                         <td>
-                                            <select chosen="" data-placeholder="Choose a product..." class="form-control" ng-model="productinward.product_id" ng-options="product.id as product.product_name for product in products"  tabindex="2"  ng-change="getProductByChange(productinward.product_id,$index)">
+                                            <select chosen="" data-placeholder="Choose a product..." class="form-control" ng-model="productinward[$index].product_id" ng-options="product.id as product.product_name for product in products"  tabindex="2"  ng-change="getProductByChange(productinward[$index].product_id,$index)">
                                         </select>
                                     </td>
                                         <td>
-                                            <input type="text" placeholder="Unit Cost" class="form-control" name="unit_cost" ng-model="productinward.unit_cost"></td>
+                                            <input type="text" placeholder="Unit Cost" class="form-control" name="unit_cost" ng-model="productinward[$index].unit_cost"></td>
                                         <td>
-                                            <input type="text" placeholder="Quantity" class="form-control" name="quantity" ng-model="productinward.quantity" ng-blur="calcTotalCost()"></td>
+                                            <input type="text" placeholder="Quantity" class="form-control" name="quantity" ng-model="productinward[$index].quantity" ng-blur="calcTotalCost()"></td>
                                             <td>
-                                                <input type="text" placeholder="Total Cost" class="form-control" name="total_cost" ng-model="productinward.total_cost">
+                                                <input type="text" placeholder="Total Cost" class="form-control" name="total_cost" ng-model="productinward[$index].total_cost">
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-xs btn-danger" ng-click="remove($index)" ><i class="fa fa-trash"></i></button>
+                                                <button type="button" class="btn btn-xs btn-danger" ng-click="remove($index)" ><i class="fa fa-minus"></i></button>
                                             </td>
                                     </tr>
                                 </tbody>
