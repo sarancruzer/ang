@@ -70,6 +70,7 @@
     <script src="../app/app.js"></script>
     <script src="../app/router.js"></script>
     <script src="../app/modules/auth/controllers/authController.js"></script>
+    <script src="../app/modules/auth/controllers/logoutController.js"></script>
     <script src="../app/modules/users/controllers/userController.js"></script>
     <script src="../app/modules/profile/controllers/profileController.js"></script>
     <script src="../app/modules/supplier/controllers/manageSupplierController.js"></script>
@@ -81,6 +82,9 @@
     <script src="../app/modules/productinward/controllers/manageProductinwardController.js"></script>
     <script src="../app/modules/productinward/controllers/productinwardAddController.js"></script>
     <script src="../app/modules/productinward/controllers/productinwardEditController.js"></script>
+    <script src="../app/modules/productinward/controllers/productinwardShowController.js"></script>
+    <script src="../app/modules/stock/controllers/manageStockController.js"></script>
+    
 
     
 

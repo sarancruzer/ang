@@ -149,25 +149,42 @@ class ProductController extends Controller{
         $user = JWTAuth::toUser($token);
         date_default_timezone_set('Asia/Kolkata');
 
-        print_r($input);
-        $total_cost = round($input['quantity'] * $input['unit_cost']);
-        $data = array(
-           'product_id' => $input['product_id'],
-           'quantity' => $input['quantity'],
-           'unit_cost' => $input['unit_cost'],
-           'total_cost' => $input['total_cost'],
-           'invoice_no' => $input['invoice_no'],
-           "invoice_date"=>$input['invoice_date'],
+        //print_r($input);
+
+        $product_inward = $input['productInward'];
+        $inward = $input['inward'];
+        $grand_total = $input['grandTotal'];
+
+        $data_hdr = array(
+           'supplier_id' => $product_inward['supplier_id'],
+           'po_number' => $product_inward['po_number'],
+           'invoice_no' => $product_inward['invoice_no'],
+           "invoice_date"=> date('Y-m-d'), //$product_inward['invoice_date'],
+           "grand_total" =>$grand_total,
            "created_at"=>date('Y-m-d'),
             );
 
-        $result = array();                            
-        $lists = DB::table('product_inward')->insertGetId($data);            
-        if(count($lists)>0){
+        $return_id = DB::table('product_inward')->insertGetId($data_hdr);            
 
+        $data_child = array();
+
+        if($return_id){
+        foreach ($inward as $key => $value) {
+            $data_child['product_inward_id'] = $return_id;
+            $data_child['product_id'] = $value['product_id'];
+            $data_child['unit_cost'] = $value['unit_cost'];
+            $data_child['quantity'] = $value['quantity'];
+            $data_child['total_cost'] = $value['total_cost'];
+            $data_child['grand_total'] = $grand_total;
+            $data_child['created_at'] = date('Y-m-d');
             
-           $this->addProductToStock($data);
-         
+            $product_inward_child_id = DB::table('product_inward_child')->insertGetId($data_child);             
+        }
+    }
+    
+        if($return_id){
+
+           $this->addProductToStock($inward);
            $result['info'] = 'product has been added successfully '; 
            return response()->json(['result' => $result]);
         }                            
@@ -177,24 +194,21 @@ class ProductController extends Controller{
 
 
     public function addProductToStock($data){
-        $exists_product = DB::table('stock')
-                                ->where('product_id','=',$data['product_id'])
+                      
+        foreach ($data as $key => $value) {
+            $exists_product = DB::table('stock')
+                                ->where('product_id','=',$value['product_id'])
                                 ->first();
-        
-        unset($data['invoice_no']);                                
-        unset($data['invoice_date']);                                
+            
 
+            $records['quantity'] = $value['quantity']+$exists_product['quantity'];
+            $records['unit_cost'] = $value['unit_cost'];
+            $records['total_cost'] =  ($value['quantity']*$value['unit_cost'])+$exists_product['total_cost'];
 
-        if(count($exists_product)>0){
-            $data['quantity'] = $data['quantity']+$exists_product->quantity;
-            $data['unit_cost'] = $exists_product->unit_cost;
-            $data['total_cost'] =  ($data['quantity']*$exists_product->unit_cost)+$exists_product->total_cost;
-       }
-        if(count($exists_product)>0){
-            $lists = DB::table('stock')->where('product_id','=',$data['product_id'])->update($data);
-       }else{
-            $lists = DB::table('stock')->insertGetId($data);
-       }                            
+            $update_product = DB::table('stock')
+                                ->where('product_id','=',$value['product_id'])
+                                ->update($records);
+            }
 
     }
 
@@ -268,10 +282,38 @@ class ProductController extends Controller{
          $user = JWTAuth::toUser($token);
 
          $lists = DB::table('product_inward as pi')
-                        ->leftjoin('products as p','p.id','=','pi.product_id')
-                        ->select('p.product_code','p.product_name','pi.*')
-                        ->orderBy('p.id','desc')
+                        //->leftjoin('product_inward_child as pic','pic.product_inward_id','=','pi.id')
+                        ->leftjoin('suppliers as s','s.id','=','pi.supplier_id')
+                        ->select('s.supplier_name','pi.*')
+                        ->orderBy('pi.id','desc')
                         ->paginate(5);
+
+         $result = array();
+         if(count($lists)>0){
+            $result['info']=$lists;
+            return response()->json(['result'=>$result]);
+         }  
+         return response()->json(['error'=>'No Results Found'],401);
+
+
+
+    }
+
+     public function getProductinwardDetailById(Request $request){
+         $input = $request->all();   
+         $token = $this->getToken($request);
+         $user = JWTAuth::toUser($token);
+
+         $product_inward_id = $input['productInwardId'];
+
+         $lists = DB::table('product_inward as pi')
+                        ->leftjoin('product_inward_child as pic','pic.product_inward_id','=','pi.id')
+                        ->leftjoin('products as p','p.id','=','pic.product_id')
+                        ->leftjoin('suppliers as s','s.id','=','pi.supplier_id')
+                        ->select('p.product_code','p.product_name','s.supplier_name','pi.*','pic.*')
+                        ->orderBy('pi.id','desc')
+                        ->where('pi.id','=',$product_inward_id)
+                        ->get();
 
          $result = array();
          if(count($lists)>0){
@@ -340,5 +382,23 @@ class ProductController extends Controller{
                 return response()->json(['result'=>$unit_cost]);
             }                
 
+    }
+
+    public function getStockList(Request $request){
+            $input = $request->all();
+            $token = $this->getToken($request);
+            $user = JWTAuth::toUser($token);
+
+            $lists = DB::table('stock')
+                            ->orderBy('id','desc')
+                            ->paginate(5);
+
+            if(count($lists)>0){
+                $result = [];
+                $result['info'] = $lists;
+                return response()->json(['result'=>$result]);
+            }                                    
+
+            return response()->json(['error'=>'No Results Found']);
     }
 }

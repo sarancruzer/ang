@@ -38,8 +38,18 @@ class AuthenticateController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
+
+    $user = User::where("email", $credentials["email"])->first();
+    $details["id"] = $user->id;
+    $details["email"] = $user->email;
+    $details["user_type"] = $user->user_type;
+    $details["name"] = (!$user->email ? "Admin" : $user->email);
+    $details["avatar"] = $user->avatar;
+
+    User::where("id", $user->id)->update(array('last_login' => date("Y-m-d H:i:s") ));
+
         // if no errors are encountered we can return a JWT
-        return response()->json(compact('token'));
+    return response()->json(compact('details','token'));
     }
 
     public function getUsers(Request $request)
