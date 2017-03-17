@@ -9,22 +9,22 @@ $scope.doLogin = function (logdetail) {
 
         
             $auth.login(credentials).then(function(data) {
-                $rootScope.user = data.data.details;
 
-                console.log(data);
+                $rootScope.user = data.data.details;
+                $rootScope.curUser = data.data.details.name;
+                $rootScope.userId = data.data.details.userid;
+                $rootScope.userType = data.data.details.user_type;
+                $rootScope.avatar = data.data.details.avatar;
                 
-                // $rootScope.Username = data.data.details.name;
-                // $rootScope.UserType = data.data.details.user_type;
-                // $rootScope.Email = data.data.details.email;
-                
-                
-                // localStorage.setItem('usename',data.name);
-                // localStorage.setItem('email',data.id);
-                // localStorage.setItem('userType',data.user_type);
-                
+                localStorage.setItem('usename',data.data.details.name);
+                localStorage.setItem('userId',data.data.details.id);
+                localStorage.setItem('userType',data.data.details.user_type);
+                localStorage.setItem('avatar',data.data.details.avatar);
+
+                $scope.user = data.data.details;
                 var token = data.data.token;
                 $rootScope.authenticated = true;
-                $state.go('layout.profile', {});
+                $state.go('layout.profile',{});
                 
             }, function(error) {
                 $scope.loginError = true;

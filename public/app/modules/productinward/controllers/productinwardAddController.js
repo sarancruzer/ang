@@ -19,19 +19,43 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
             });
         };
 
-        $scope.getAllProducts();
-
-        $scope.getProductByChange = function(){
-            console.log($scope.productinward.product);
-
+        $scope.getAllSuppliers= function(){
             var request = {
                 method:"POST",
-                url:"/api/getProductCost",
-                data:{productId:$scope.productinward.product},
+                url:"/api/getAllSuppliers",
+                data:{},
                 headers : {'Content-Type' : 'application/json'},
             };
             $http(request).then(function successCallback(response) {
-                $scope.productinward.unit_cost = response.data.result;
+                $scope.suppliers = response.data.result;
+               // console.log(response);
+              //  console.log($scope.suppliers);
+                
+            }, function errorCallback(response) {
+                $scope.CPError=response.data.error;
+                if(response.status == 404){
+                    $scope.CPError = response.statusText;
+                }
+            });
+        };
+
+        $scope.getAllSuppliers();
+
+        $scope.getAllProducts();
+
+        $scope.inward = [];
+        $scope.getProductByChange = function(productId,index){
+            var request = {
+                method:"POST",
+                url:"/api/getProductCost",
+                data:{productId:productId},
+                headers : {'Content-Type' : 'application/json'},
+            };
+            $http(request).then(function successCallback(response) {
+               // console.log(response);
+                //console.log($scope.inward[index].unit_cost);
+
+                $scope.inward[index].unit_cost = response.data.result;
             }, function errorCallback(response) {
                 $scope.CPError=response.data.error;
                 if(response.status == 404){
@@ -41,14 +65,28 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
      
         }
 
-        $scope.calcTotalCost = function(){
+        var grand_total=0;
+        
+        $scope.grand_total = 0;
+        $scope.calcTotalCost = function(index){
+            $scope.inward[index].total_cost = $scope.inward[index].unit_cost * $scope.inward[index].quantity;
+             angular.forEach($scope.inward, function(value, key){
+                  grand_total=grand_total+value.total_cost;
+                    
+            });
 
-            $scope.productinward.total_cost = $scope.productinward.unit_cost * $scope.productinward.quantity;
+             console.log(grand_total);
 
+            $scope.grand_total=grand_total;
         }
 
         $scope.productinwardAddFunc = function(form){
-            var data = $scope.product;
+            var data = {
+                "productInward":$scope.productInward,
+                "inward":$scope.inward,
+                "grandTotal":$scope.grand_total
+            }
+
             console.log(data);
             var request = {
                 method:"POST",
@@ -59,7 +97,7 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
             $http(request).then(function successCallback(response) {
                 
                 console.log(response.data.result.info);
-                $location.path("/productList");
+               // $location.path("/productList");
                 $scope.SSuccess=response.data.result.info;
             }, function errorCallback(response) {
                 $scope.SError=response.data.error;
@@ -69,62 +107,15 @@ app.controller("productinwardAddController",function ($scope, $auth, $state, $ht
             });
         };
 
-
-
-         $scope.personalDetails = [
-        {
-            'fname':'Muhammed',
-            'lname':'Shanid',
-            'email':'shanid@shanid.com'
-        },
-        {
-            'fname':'John',
-            'lname':'Abraham',
-            'email':'john@john.com'
-        },
-        {
-            'fname':'Roy',
-            'lname':'Mathew',
-            'email':'roy@roy.com'
-        }];
-
+        $scope.productinwards = [{},{},{}];
+    
         $scope.addNew = function(personalDetail){
-            $scope.personalDetails.push({ 
-                'fname': "", 
-                'lname': "",
-                'email': "",
-            });
+            $scope.productinwards.push({});
         };
 
-         $scope.remove = function(){
-            var newDataList=[];
-            $scope.selectedAll = false;
-            angular.forEach($scope.personalDetails, function(selected){
-                if(!selected.selected){
-                    newDataList.push(selected);
-                }
-            }); 
-            $scope.personalDetails = newDataList;
-        };
-
-
-         $scope.checkAll = function () {
-        if (!$scope.selectedAll) {
-            $scope.selectedAll = true;
-        } else {
-            $scope.selectedAll = false;
+        $scope.remove = function(index){
+            $scope.productinwards.splice(index, 1);
         }
-        angular.forEach($scope.personalDetails, function(personalDetail) {
-            personalDetail.selected = $scope.selectedAll;
-        });
-    }; 
-
-    $scope.personalDetail = [];
-    $scope.check = function(index){
-            console.log(index);
-        $scope.personalDetail[index].lname = " name v"; 
-
-    }
 
        
 });

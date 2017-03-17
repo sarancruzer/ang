@@ -15,6 +15,10 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                     templateUrl: 'app/modules/auth/views/login.html',
                     controller: 'authController as auth'
                 })
+                .state('logout',{
+                    url:'/logout',
+                    controller:'logoutController as logout',
+                })
                 .state('layout.users', {
                     url: '/users',
                     templateUrl: '/app/modules/users/views/userView.html',
@@ -79,6 +83,19 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                   controller:'productinwardEditController as productinwardEdit',
                   pageTitle:'Edit Product'
                 })
+                .state('layout.productinwardShow',{
+                  url:'/productinwardShow/:id',
+                  templateUrl:'/app/modules/productinward/views/_productinwardShow.html',
+                  controller:'productinwardShowController as productinwardShow',
+                  pageTitle:'Show Product'
+                })
+                .state('layout.stockList',{
+                  url:'/stockList',
+                  templateUrl:'/app/modules/stock/views/_stockList.html',
+                  controller:'manageStockController as manageStock',
+                  pageTitle:'Show Product'
+                })
+                
 
 
         });
