@@ -2,10 +2,10 @@
 app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
             // Satellizer configuration that specifies which API
             // route the JWT should be retrieved from
-            $authProvider.loginUrl = '/auth/api/authenticate';
+            $authProvider.loginUrl = '/api/authenticate';
             // Redirect to the auth state if any other states
             // are requested other than users
-            $urlRouterProvider.otherwise('/auth');
+            $urlRouterProvider.otherwise('/');
             $stateProvider
             .state('layout', {
                     templateUrl: 'app/modules/shared/template.html',

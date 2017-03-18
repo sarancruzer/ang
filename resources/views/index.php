@@ -67,22 +67,7 @@
 
 
     <!-- Application Scripts -->
-<<<<<<< HEAD
-    <script src="app/app.js"></script>
-    <script src="app/router.js"></script>
-    <script src="app/modules/auth/controllers/authController.js"></script>
-    <script src="app/modules/users/controllers/userController.js"></script>
-    <script src="app/modules/profile/controllers/profileController.js"></script>
-    <script src="app/modules/supplier/controllers/manageSupplierController.js"></script>
-    <script src="app/modules/supplier/controllers/supplierAddController.js"></script>
-    <script src="app/modules/supplier/controllers/supplierEditController.js"></script>
-    <script src="app/modules/product/controllers/manageProductController.js"></script>
-    <script src="app/modules/product/controllers/productAddController.js"></script>
-    <script src="app/modules/product/controllers/productEditController.js"></script>
-    <script src="app/modules/productinward/controllers/manageProductinwardController.js"></script>
-    <script src="app/modules/productinward/controllers/productinwardAddController.js"></script>
-    <script src="app/modules/productinward/controllers/productinwardEditController.js"></script>
-=======
+
     <script src="../app/app.js"></script>
     <script src="../app/router.js"></script>
     <script src="../app/modules/auth/controllers/authController.js"></script>
@@ -101,7 +86,7 @@
     <script src="../app/modules/productinward/controllers/productinwardShowController.js"></script>
     <script src="../app/modules/stock/controllers/manageStockController.js"></script>
     
->>>>>>> e5aae4c2527d6119f6ae646f17e1d195b7d10651
+
 
     
 
